@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+</head>
+
+<body>
+
+<!-- header with question mark -->
+<div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+    <div class="col-sm-8" style="padding:0">
+        <h1> Tutorial </h1>
+        <p> Supporting Multi-Objective Decision Making. </p>
+    </div>
+    <div class="col-sm-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+        <img style="height:80%;" src="../static/images/question_mark.png" />
+        <span class="tooltiptext"> You prefer larger numbers over smaller numbers. Example: You like 8 more than 5. </span>
+    </div>
+</div> </div> </div>
+
+    <!-- container that can hold bootstrap rows -->
+    <div class="container">
+
+        <!-- WELCOME GIF AND TEXT -->
+        <div class="row">
+                <p style="font-size:130%; width:100%; margin-left:auto; text-align:justify;">
+                    Welcome to the tutorial!
+                    We start by giving you a <strong> persona description </strong> - read it carefully.
+                    You will then be asked to answer questions <em> according to the described preferences </em>
+                    (i.e., <u>not</u> according to your own preferences).
+                </p>
+        </div>
+
+        <!-- PERSONA DESCRIPTION-->
+        <div class="row persona-description">
+            <p class="persona-heading">
+                Persona Description <br>
+            </p>
+            <p class="persona-text">
+                In this tutorial, you are interested in finding the <em>best number</em>.
+                Your preferences over numbers are quite simple:
+                <strong> the higher the better. </strong>
+                This is true for all numbers. <br>
+                You can re-read these preferences anytime:
+                just look for the question mark symbol you see in the top-right corner
+                and hover the mouse over it.
+            </p>
+        </div>
+
+
+        <!-- BUTTON -->
+        <div class="row justify-content-md-center" style="margin-top: 20px; margin-bottom:30px;">
+            <form action="../start_tutorial" method="POST">
+                 <button style="font-size:150%; height:100px; width:150px" class="btn-primary"> Got it! </button>
+                 <input type="hidden" name="username" value="{{username}}">
+             </form>
+        </div>
+
+    </div> <!-- end container for bootstrap rows -->
+
+</body>
+</html>

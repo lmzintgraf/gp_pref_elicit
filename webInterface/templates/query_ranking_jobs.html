@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- bootstrap -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- my stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/main_jobs.css">
+    <link rel="stylesheet" type="text/css" href="../static/ranking.css">
+
+</head>
+
+<body>
+
+    <!-- header with question mark -->
+    <div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+        <div class="col-sm-8" style="padding:0">
+            <h1> RANKING </h1>
+            <p> In each step, please <strong> rank </strong> the options from best (top) to worst (bottom) </p>
+        </div>
+        <div class="col-sm-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+            <img style="height:80%;" src="../static/images/question_mark.png" />
+            <span class="tooltiptext">
+                You need to work 2 days at home to take care of your new-born.
+                You care about a good salary and job security.
+                <br> <br>
+                The ordering of the importance of those issues is:
+                Work from home > Salary > Probation time.
+            </span>
+        </div>
+    </div> </div> </div>
+
+
+    <!-- rest of page (bootstrap container for rows) -->
+    <div class="container-fluid">
+
+        <!-- description of what to do -->
+        <div class="row no-gutter">
+            <p>
+                Rank all items on the right side,
+                then click the "submit" button on the right to continue.
+            </p>
+        </div>
+
+        <!-- start sorting areas -->
+        <div class="row justify-content-md-center sorting-area">
+
+            <!-- unranked jobs -->
+            <div class="col-4" id="unranked-items" ondragenter="return dragEnter(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                {% for job in jobs_unranked %}
+
+                    <!-- jobs -->
+                    <div class="row single-item job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStart(event)" ondragend="return dragEnd(event)">
+
+                        <!-- visible information -->
+                        <div class="row single-item-text job-large">
+                            {% for key, value in job.items() %}
+                                {% if key != 'ID' %}
+                                    <div class="col-sm-7"> {{key}}: </div>
+                                    <div class="col-sm-4"> {{value}} </div>
+                                    {% if key != 'Probation' %}
+                                        <div class="col-sm-12 job-line-sep"></div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+            </div>
+
+            <!-- ranked items -->
+            <div class="col-6 col-ranking">
+                <div class="row">
+
+                    <!-- arrow -->
+                    <div class="col-3" id="arrow">
+                        <img style="left:100%" height="90%" src="../static/images/arrow_long.png" />
+                    </div>
+
+                    <!-- job list -->
+                    <div class="col-9" id="ranked-items" ondragenter="return dragEnter(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        {% for job in jobs_ranked %}
+
+                            <!-- jobs -->
+                            <div class="row single-item job sorted-in-job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStart(event)" ondragend="return dragEnd(event)">
+
+                                <!-- visible information -->
+                                <div class="row single-item-text job-large">
+                                    {% for key, value in job.items() %}
+                                        {% if key != 'ID' %}
+                                            <div class="col-sm-7"> {{key}}: </div>
+                                            <div class="col-sm-4"> {{value}} </div>
+                                            {% if key != 'Probation' %}
+                                                <div class="col-sm-12 job-line-sep"></div>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- submission button -->
+            <div class="col-2" style="margin-top:220px;">
+                <form id="subForm" action="../submit_ranking_jobs" method="post" style="float:right;">
+                    <!-- information we pass on when ranking is submitted -->
+                    <input type="hidden" name="username" value="{{username}}">
+                    <input type="hidden" name="number_counter" value="{{number_counter}}">
+
+                    <input type="hidden" name="rankingResult" value="">
+
+                    <!-- Next button -->
+                    <image class="submit-button" src="../static/images/submit_button.png" onmouseover="this.src='../static/images/submit_button_hover.png'" onmouseout="this.src='../static/images/submit_button.png'" onclick="return handleSubmit()"></image>
+                </form>
+            </div>
+
+        </div> <!-- end sorting areas -->
+
+        <div class="row">
+            <div id="hidingSpot" style="min-height:100px;">
+                <div style="z-index:2; position:absolute; background-color:var(--light-red); width:100%; height:200px;"></div>
+            </div>
+        </div>
+
+    </div> <!-- end container for bootstrap rows -->
+
+
+    <!-- javascript for drag&drop -->
+    <script type="text/javascript" src="../static/ranking.js"></script>
+
+
+</body>
+</html>

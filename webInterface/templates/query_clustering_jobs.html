@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- bootstrap -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- my stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/main_jobs.css">
+    <link rel="stylesheet" type="text/css" href="../static/clustering.css">
+
+</head>
+
+<body>
+
+    <!-- header with question mark -->
+    <div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+        <div class="col-sm-8" style="padding:0">
+            <h1> CLUSTERING </h1>
+            <p> In each step, sort the options into the appropriate clusters. </p>
+        </div>
+        <div class="col-sm-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+            <img style="height:80%;" src="../static/images/question_mark.png" />
+            <span class="tooltiptext">
+                You need to work 2 days at home to take care of your new-born.
+                You care about a good salary and job security.
+                <br> <br>
+                The ordering of the importance of those issues is:
+                Work from home > Salary > Probation time.
+            </span>
+        </div>
+    </div> </div> </div>
+
+
+    <div class="container-fluid"> <!-- container that can hold bootstrap rows -->
+
+
+        <!-- start headings for sorting areas -->
+        <div class="row no-gutter">
+            <p>
+                Sort in all items into the appropriate cluster on the right.
+                Note that there can only be one best item.
+                You can re-order the items at any time if you wish.
+            </p>
+        </div>
+
+        <!-- start sorting areas -->
+        <div class="row sorting-area">
+
+            <!-- unclustered jobs -->
+            <div class="col-4" id="unclustered-items" ondragenter="return dragEnter(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+
+                {% for job in jobs_unclustered %}
+
+                    <!-- jobs -->
+                    <div class="row single-item job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+
+                        <!-- visible information -->
+                        <div class="row single-item-text job-large">
+                            {% for key, value in job.items() %}
+                                {% if key != 'ID' %}
+                                    <div class="col-sm-7"> {{key}}: </div>
+                                    <div class="col-sm-4"> {{value}} </div>
+                                    {% if key != 'Probation' %}
+                                        <div class="col-sm-12 job-line-sep"></div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <!-- invisible information-->
+                        <p class="invisible job-small">
+                            {% for key, value in job.items() %}
+                                {% if key != 'ID' %}
+                                    {{key[0]}} : {{value}}
+                                    {% if key != 'Probation' %}
+                                        <br>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- clustered jobs -->
+            <div class="col-6">
+
+                <!-- BEST -->
+                <div class="row cluster" id="top-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <p id="top-cluster-text">BEST JOB</p>
+
+                    {% for job in top_job %}
+
+                        <!-- jobs -->
+                        <div class="row single-item job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+
+                            <!-- invisible information -->
+                            <div class="invisible row single-item-text job-large">
+                                {% for key, value in job.items() %}
+                                    {% if key != 'ID' %}
+                                        <div class="col-sm-7"> {{key}}: </div>
+                                        <div class="col-sm-4"> {{value}} </div>
+                                        {% if key != 'Probation' %}
+                                            <div class="col-sm-12 job-line-sep"></div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <!-- visible information-->
+                            <p class="visible job-small">
+                                {% for key, value in job.items() %}
+                                    {% if key != 'ID' %}
+                                        {{key[0]}} : {{value}}
+                                        {% if key != 'Probation' %}
+                                            <br>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+                <!-- GOOD -->
+                <div class="row cluster" id="good-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <p id="good-cluster-text">GOOD JOBS</p>
+
+                    {% for job in good_jobs %}
+
+                        <div class="row single-item job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+
+                            <!-- invisible information -->
+                            <div class="invisible row single-item-text job-large">
+                                {% for key, value in job.items() %}
+                                    {% if key != 'ID' %}
+                                        <div class="col-sm-7"> {{key}}: </div>
+                                        <div class="col-sm-4"> {{value}} </div>
+                                        {% if key != 'Probation' %}
+                                            <div class="col-sm-12 job-line-sep"></div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <!-- visible information-->
+                            <p class="visible job-small">
+                                {% for key, value in job.items() %}
+                                    {% if key != 'ID' %}
+                                        {{key[0]}} : {{value}}
+                                        {% if key != 'Probation' %}
+                                            <br>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+                <!-- BAD-->
+                <div class="row cluster" id="bad-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <p id="bad-cluster-text">BAD JOBS</p>
+
+                    {% for job in bad_jobs %}
+
+                        <div class="row single-item job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+
+                            <!-- invisible information -->
+                            <div class="invisible row single-item-text job-large">
+                                {% for key, value in job.items() %}
+                                    {% if key != 'ID' %}
+                                        <div class="col-sm-7"> {{key}}: </div>
+                                        <div class="col-sm-4"> {{value}} </div>
+                                        {% if key != 'Probation' %}
+                                            <div class="col-sm-12 job-line-sep"></div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                            <!-- visible information-->
+                            <p class="visible job-small">
+                                {% for key, value in job.items() %}
+                                    {% if key != 'ID' %}
+                                        {{key[0]}} : {{value}}
+                                        {% if key != 'Probation' %}
+                                            <br>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+            </div> <!-- end ranked jobs panel -->
+
+            <!-- submit button -->
+            <div class="col-2" style="margin-top:220px;">
+                <form id="subForm" action="../submit_clustering_jobs" method="post" style="float:right;">
+                    <!-- information we pass on when ranking is submitted -->
+                    <input type="hidden" name="username" value="{{username}}">
+                    <input type="hidden" name="top-cluster" value="">
+                    <input type="hidden" name="good-cluster" value="">
+                    <input type="hidden" name="bad-cluster" value="">
+                    <image class="submit-button" src="../static/images/submit_button.png" onmouseover="this.src='../static/images/submit_button_hover.png'" onmouseout="this.src='../static/images/submit_button.png'" onclick="return handleSubmit()"></image>
+                </form>
+            </div>
+
+        </div> <!-- end sorting area -->
+
+    </div> <!-- end container for bootstrap rows -->
+
+    <!-- javascript for drag&handleDrop -->
+    <script type="text/javascript" src="../static/clustering.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+</head>
+
+<body>
+
+    <!-- header-->
+    <div class="jumbotron">
+        <h1> Preference Elicitation Study </h1>
+        <p> Supporting Multi-Objective Decision Making. </p>
+    </div>
+
+    <!-- rest of page -->
+    <div class="container">
+
+        <!-- introduction text -->
+        <div class="row">
+                <p style="font-size:130%; text-align:justify;">
+                    Thanks for taking the time to participate in this study,
+                    in which we explore ways of supporting humans in <b> complex decision problems. </b>
+                    <br> <br>
+                    In such a scenario, there are many options with multiple attributes to choose from,
+                    but not enough time (or patience) to evaluate them all.
+                    The goal is to find the best option as quickly as possible.
+                    <br> <br>
+                    You'll be asked to answer different types of questions, from which
+                    <b> the algorithm infers your preferences </b> and starts making better suggestions.
+                    <br> <br>
+                    Note: Javascript has to be enabled, and the experiments do not work on mobile.
+                </p>
+        </div>
+
+        <!-- registration of user -->
+        <div class="row justify-content-md-center" style="min-height:100px;">
+
+            <!-- registration: username is not defined yet -->
+            {% if (username is not defined) or (username == 'invalid') or (username == 'existing') %}
+
+                <p style="font-size:130%">
+                    Enter your MTurk Workder ID:
+                </p>
+
+                <form name='registration_for' action="register_user" method="POST">
+                    <input style="margin-left:10px;" name="username"/>
+                    <button class="btn-primary" style="margin-left:5px;">Let's go!</button>
+                </form>
+
+                {% if username == 'invalid' %}
+                    <p style="color:red;">
+                        Sorry, that WorkerID is invalid. Use only alphanumeric characters.
+                    </p>
+                {% elif username == 'existing' %}
+                    <p style="color:red;">
+                        This WorkderID is already registered. You can only complete the experiment once.
+                    </p>
+                {% else %}
+                    <p style="color:red; margin-left:5px; opacity:0; visibility:hidden;"> I'm just a placeholder. </p>
+                {% endif %}
+
+                <p style="font-size:100%">
+                    (Note: We will use your worker ID to validate you completed the survey at the end of the experiments.
+                    Each worker ID only works once, so make sure you complete the experiment in one go and don't refresh the page.)
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+    </div> <!-- end container for rows -->
+
+</body>
+
+</html>

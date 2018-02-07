@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+  <link rel="stylesheet" type="text/css" href="../static/main_tutorial.css">
+</head>
+
+<body>
+
+    <!-- header-->
+    <div class="jumbotron">
+        <h1> Tutorial </h1>
+        <p> Supporting Multi-Objective Decision Making. </p>
+    </div>
+
+    <!-- container that can hold bootstrap rows -->
+    <div class="container">
+
+        <!-- this will be shown if not all tutorials have been done -->
+        {% if not pairwise_fin or not ranking_fin or not clustering_fin %}
+
+            <div class="row" style="margin-top:30px;"> <!-- start different tutorials -->
+
+                <p style="font-size:130%; width:100%; margin-left:auto; text-align:justify;">
+                    In this tutorial, we show you how our interface works,
+                    and which <strong> types of questions </strong> you will be asked during the experiment.
+                    There are three short tutorials. You can take them in any order.
+                    To start, klick on one of the buttons below.
+                </p>
+
+                <!-- pairwise -->
+                <div class="col-sm-4">
+                    <form action="start_pairwise_tutorial/{{username}}" method="POST">
+                        {% if pairwise_fin == 0%}
+                            <button class='btn-primary'> <p style="font-size:80%">Tutorial:</p><p style="font-size:200%">PAIRWISE</p></button>
+                        {% else %}
+                            <button disabled class='btn-primary'> <p style="font-size:80%">Tutorial:</p> <p style="font-size:200%">PAIRWISE</p> </button>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <!-- ranking -->
+                <div class="col-sm-4">
+                    <form action="start_ranking_tutorial/{{username}}" method="POST">
+                        {% if ranking_fin == 0 %}
+                            <button class='btn-primary'> <p style="font-size:80%">Tutorial:</p><p style="font-size:200%">RANKING</p></button>
+                        {% else %}
+                            <button disabled class='btn-primary'> <p style="font-size:80%">Tutorial:</p> <p style="font-size:200%">RANKING</p> </button>
+                        {% endif %}
+                    </form>
+                </div>
+
+                <div class="col-sm-4">
+                    <form action="start_clustering_tutorial/{{username}}" method="POST">
+                        {% if clustering_fin == 0 %}
+                            <button class='btn-primary'> <p style="font-size:80%">Tutorial:</p><p style="font-size:200%">CLUSTERING</p></button>
+                        {% else %}
+                            <button disabled class='btn-primary'> <p style="font-size:80%">Tutorial:</p> <p style="font-size:200%">CLUSTERING</p> </button>
+                        {% endif %}
+                    </form>
+                </div>
+
+            </div> <!-- end different tutorials -->
+
+        <!-- this shows up when all tutorials are done -->
+        {% else %}
+
+            <!-- can be clicked when all tutorials are done. -->
+            <div class="row">
+
+                <p style="color:#01b297; font-size:130%; width:100%;">
+                    You completed the tutorial!
+                    Click below to start the experiment.
+                </p>
+            </div>
+
+            <div class="row justify-content-center" style="margin-top:20px;">
+                <!--<iframe class="col-3 giphy-embed" style="width:100%; padding:0; visibility:hidden;" src="https://giphy.com/embed/LZElUsjl1Bu6c" width="150" height="150" frameBorder="0" onload="this.style.visibility='visible';"></iframe>-->
+                <form class="col-6" action="reroute_to_experiment" method="POST">
+                    <input type="hidden" name="username" value="{{username}}"/>
+                    <button class="btn-primary" style="width:100%; height:100%; border-radius: 20px;">Start <br> Experiment</button>
+                </form>
+                <!--<iframe class="col-3 giphy-embed" style="width:100%; padding:0; -webkit-transform: scaleX(-1); visibility:hidden;" src="https://giphy.com/embed/LZElUsjl1Bu6c" width="150" height="150" frameBorder="0" onload="this.style.visibility='visible';"></iframe>-->
+            </div>
+
+
+
+        {% endif %}
+
+    </div> <!-- end container for bootstrap rows -->
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+</head>
+
+<body>
+
+    <!-- header with question mark -->
+    <div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+        <div class="col-8" style="padding:0">
+            <h1> Experiment: Job offers </h1>
+            <p> Supporting Multi-Objective Decision Making. </p>
+        </div>
+        <div class="col-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+            <img style="height:80%;" src="../static/images/question_mark.png" />
+            <span class="tooltiptext">
+                You need to work 2 days at home to take care of your new-born.
+                You care about a good salary and job security.
+                <br> <br>
+                The ordering of the importance of those issues is:
+                Work from home > Salary > Probation time.
+            </span>
+        </div>
+    </div> </div> </div>
+
+
+    <!-- container that can hold bootstrap rows -->
+    <div class="container">
+
+        <!-- WELCOME GIF AND TEXT -->
+        <div class="row">
+            <p style="font-size:130%; width:100%; margin-left:auto; text-align:justify;">
+                In this experiment, your goal is to find the best <strong>job offer</strong>,
+                according to the persona description we give you.
+            </p>
+        </div>
+
+        <div class="row justify-content-center">
+            <!--<div class="col-sm-4">-->
+                <!--<iframe src="https://giphy.com/embed/26BoDGStUAafwdZII" width="100%" height="100%" style="top:0;" frameBorder="0" class="giphy-embed"></iframe>-->
+            <!--</div>-->
+            <div class="col-sm-8" >
+                Each job offer has the following attributes:
+                 <ul>
+                    <li><strong>Work From Home</strong>: number of days you can work from home, e.g. "0.5" (half a day).</li>
+                    <li><strong>Salary</strong>: per month, before tax, in Euros, e.g. "1500".</li>
+                    <!--<li><strong>Full Time Equivalent (FTE)</strong>: workload in percentage of full-time job, e.g. "0.8".</li>-->
+                    <li><strong>Probation time</strong>: probation time in months, e.g. "2".</li>
+                    <!--<li><strong>Development Budget</strong>: money (in Euros) you get for career development training/seminars per year, e.g., "3000".</li>-->
+                </ul>
+            <!--</div>-->
+            </div>
+        </div>
+
+        <!-- PERSONA DESCRIPTION-->
+        <div class="row persona-description">
+            <p class="persona-heading">
+                Persona Description <br>
+            </p>
+            <p class="persona-text">
+                You describe yourself as follows: <br>
+                <em>
+                    “I have a seven-year old daughter and a new-born son.
+                    I don’t need to live in wealth, but to meet their expenses,
+                    it would be great if I can agree on a <strong>high salary</strong>
+                    and have some <strong>job security</strong>. I don't want to have a long probation time.
+                    Furthermore, since my partner is working on Mondays and Fridays,
+                    I need to take care of our new-born son on those days.
+                    Therefore I need to be able to <strong>work from home</strong> for two days in a week,
+                    but not necessarily more.
+                    If I have a very high salary I could also work from home less often,
+                    and pay a nanny instead.”
+                </em>
+                <br> <br>
+                The ordering of the importance of those issues is: <br>
+                Work from home > Salary > Probation time <br>
+                (where issue1 > issue2 means that issue1 is more important than issue2 for you).
+            </p>
+        </div>
+
+
+
+        <div class="row justify-content-left">
+            <p style="font-size:130%; width:100%; margin-left:auto; text-align:left; margin-top:30px">
+            <strong>Examples:</strong> <br>
+        </div>
+
+        <div class="row"> <p> Given these jobs: </p> </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-4" >
+                Job1:
+                 <ul>
+                    <li><strong>Work From Home</strong>: 3</li>
+                    <li><strong>Salary</strong>: 1500</li>
+                    <li><strong>Probation time</strong>: 3</li>
+                </ul>
+            </div>
+            <div class="col-sm-4" >
+                Job2:
+                 <ul>
+                    <li><strong>Work From Home</strong>: 2</li>
+                    <li><strong>Salary</strong>: 2000</li>
+                    <li><strong>Probation time</strong>: 6</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row"> <p>
+            you would prefer job2, because it has the higher salary and you can work two days from home.
+            You don't care about working more days from home, and a high salary is more important than a short probation time.
+        </p> </div>
+
+        <div class="row"> <p> If you are given these jobs: </p> </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-4" >
+                Job1:
+                 <ul>
+                    <li><strong>Work From Home</strong>: 2</li>
+                    <li><strong>Salary</strong>: 1500</li>
+                    <li><strong>Probation time</strong>: 6</li>
+                </ul>
+            </div>
+            <div class="col-sm-4" >
+                Job2:
+                 <ul>
+                    <li><strong>Work From Home</strong>: 1</li>
+                    <li><strong>Salary</strong>: 2000</li>
+                    <li><strong>Probation time</strong>: 3</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row"> <p>
+            you would prefer job1, because even though job2 has a very high salary and shorter probation time,
+            you cannot work 2 days from home. If the salary was much higher in job offer 2 (for example 4000)
+            then maybe this could convince you to work only one day from home.
+        </p> </div>
+
+        <!-- BUTTON -->
+        <div class="row justify-content-md-center" style="margin-top: 20px; margin-bottom:30px;">
+            <form action="../start_experiment/{{username}}">
+                 <button style="font-size:150%; height:100px; width:150px" class="btn-primary"> Got it! </button>
+             </form>
+        </div>
+
+    </div> <!-- end container for bootstrap rows -->
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+.single-item {
+    position:relative;
+    float:left;
+    cursor:move;
+}
+
+/* -- clusters --*/
+
+.cluster {
+    width:100%;
+    margin:10px;
+    padding:10px;
+    height:170px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: black;
+}
+
+
+.job-small {
+    width:100% !important;
+    height:auto !important;
+    margin:auto !important;
+    font-size:70% !important;
+}
+
+#top-cluster {
+    overflow-y: visible !important;
+    height:100px;
+    width:210px;
+    margin: 0 auto;
+    padding:10px 22.5px;
+    border-color: green;
+    background: rgb(0, 255, 0); /* Fall-back for browsers that don't support rgba */
+    background: rgba(0, 255, 0, .4);
+}
+
+#good-cluster {
+    border-color: orange;
+    background: rgb(255, 128, 0); /* Fall-back for browsers that don't support rgba */
+    background: rgba(255, 128, 0, .4);
+}
+
+#bad-cluster {
+    border-color: red;
+    background: rgb(255, 0, 0); /* Fall-back for browsers that don't support rgba */
+    background: rgba(255, 0, 0, .4);
+}
+
+.hover-cluster {
+    border-style: dashed;
+    border-width: 3px;
+    border-color: black;
+}
+
+.top-cluster-dragover {
+    z-index: 1;
+    margin-top:50px !important;
+}
+
+/* -- text inside clusters --*/
+
+p#top-cluster-text {
+    pointer-events: none;
+    font-size:150%;
+    text-shadow: 3px 2px green;
+    position:absolute;
+}
+
+p#good-cluster-text {
+    pointer-events: none;
+    margin:10px 22.5px;
+    font-size:150%;
+    text-decoration-color:orange;
+    text-shadow: 3px 2px orange;
+    position:absolute;
+}
+
+p#bad-cluster-text {
+    pointer-events: none;
+    margin:10px 22.5px;
+    font-size:150%;
+    text-shadow: 3px 2px red;
+    position:absolute;
+}

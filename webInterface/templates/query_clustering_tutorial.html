@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- bootstrap -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- my stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/main_tutorial.css">
+    <link rel="stylesheet" type="text/css" href="../static/clustering.css">
+
+</head>
+
+<body>
+
+
+    <!-- header with question mark -->
+    <div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+        <div class="col-sm-8" style="padding:0">
+            <h1> CLUSTERING </h1>
+            <p> In each step, sort the options into the appropriate clusters. </p>
+        </div>
+        <div class="col-sm-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+            <img style="height:80%;" src="../static/images/question_mark.png" />
+            <span class="tooltiptext"> You prefer larger numbers over smaller numbers. Example: You like 8 more than 5. </span>
+        </div>
+    </div> </div> </div>
+
+
+    <!-- rest of page (bootstrap container for rows) -->
+    <div class="container-fluid">
+
+        <!-- description of what to do -->
+        <div class="row no-gutter">
+            <p>
+                Sort in all items into the appropriate cluster on the right.
+                Note that there can only be one best item.
+                You can re-order the items at any time if you wish.
+                <br>
+                You can move items by <strong>drag and drop</strong>: Click on one number, keep it clicked,
+                and drag it over to the right shaded area. Release it
+                when you want to place it.
+                Once you're done,
+                click the "submit" button on the right to continue.
+                (If you're having trouble with the clustering, here's a video:
+                <a href="https://youtu.be/pjYdV_oLEhg" target="_blank">youtu.be/pjYdV_oLEhg</a>
+                )
+            </p>
+        </div>
+
+        <!-- start sorting areas -->
+        <div class="row sorting-area">
+
+            <!-- unclustered numbers -->
+            <div class="col-3" id="unclustered-items" ondragenter="return dragEnter(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                {% for number in numbers_unranked %}
+                    <div class="single-item number" id="{{number}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                        {{number}}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- clustered numbers -->
+            <div class="col-6" style="overflow: visible;">
+
+                <!-- the best item -->
+                <div class="row cluster" id="top-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <p id="top-cluster-text">BEST NUMBER</p>
+                    {% for number in top_number %}
+                        <div class="single-item number" id="{{number}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            {{number}}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- good items -->
+                <div class="row cluster" id="good-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <p id="good-cluster-text">GOOD NUMBERS</p>
+                    {% for number in good_numbers %}
+                        <div class="single-item number" id="{{number}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            {{number}}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- bad items -->
+                <div class="row cluster" id="bad-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <p id="bad-cluster-text">BAD NUMBERS</p>
+                    {% for number in bad_numbers %}
+                        <div class="single-item number" id="{{number}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            {{number}}
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div> <!-- end clustered numbers panel -->
+
+            <!-- submit button -->
+            <div class="col-3" style="margin-top:220px;">
+                <form id="subForm" action="../submit_clustering_tutorial" method="post" style="float:right;">
+                    <!-- information we pass on when ranking is submitted -->
+                    <input type="hidden" name="username" value="{{username}}">
+                    <input type="hidden" name="number_counter" value="{{number_counter}}">
+                    <input type="hidden" name="top-cluster" value="">
+                    <input type="hidden" name="good-cluster" value="">
+                    <input type="hidden" name="bad-cluster" value="">
+                    <image class="submit-button" src="../static/images/submit_button.png" onmouseover="this.src='../static/images/submit_button_hover.png'" onmouseout="this.src='../static/images/submit_button.png'" onclick="check_clustering()"></image>
+                </form>
+            </div>
+
+        </div> <!-- end sorting area -->
+
+    </div> <!-- end container for bootstrap rows -->
+
+<!-- javascript for drag&drop -->
+<script type="text/javascript" src="../static/clustering.js"></script>
+<script type="text/javascript" src="../static/main_tutorial.js"></script>
+
+
+</body>
+</html>

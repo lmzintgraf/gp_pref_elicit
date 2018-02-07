@@ -1,0 +1,14 @@
+.single-item {
+    cursor: pointer;
+}
+
+#pairwise-comparison {
+    width:100%;
+}
+
+/* make the numbers bigger */
+.number {
+    font-size:100px;
+    width:150px;
+    min-height:150px;
+}

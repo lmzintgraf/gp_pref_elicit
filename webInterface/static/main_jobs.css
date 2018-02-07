@@ -1,0 +1,47 @@
+
+/* -- single numbers -- */
+
+.job {
+    text-align:left;
+
+    width:auto;
+    padding:10px;
+    margin:auto;
+
+    background-color: var(--bright-green);
+    border-color: var(--dark-green);
+    color: var(--dark-red);
+
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px #000;
+
+    font-size:90%;
+}
+
+.job:hover, .moving-copy {
+    background-color: var(--bright-red);
+    border-color: var(--dark-red);
+    color: var(--bright-green);
+}
+
+.job-line-sep {
+    opacity: 0.2;
+    height: 0.5px;
+    background-color: var(--dark-red);
+}
+
+.job-small {
+    width:50% !important;
+    height:auto !important;
+    margin:auto !important;
+    font-size:90% !important;
+}
+
+.invisible {
+    display: none;
+}
+
+.dragover-item {
+    margin-top: 80px !important;
+}
+

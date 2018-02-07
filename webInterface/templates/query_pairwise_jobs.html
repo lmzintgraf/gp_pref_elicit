@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- bootstrap -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- my stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/main_jobs.css">
+    <link rel="stylesheet" type="text/css" href="../static/pairwise.css">
+
+</head>
+
+<body>
+
+
+    <!-- header with question mark -->
+    <div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+        <div class="col-sm-8" style="padding:0">
+            <h1> PAIRWISE COMPARISONS </h1>
+            <p> In each step, please pick the <strong> better </strong> option. </p>
+        </div>
+        <div class="col-sm-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+            <img style="height:80%;" src="../static/images/question_mark.png" />
+            <span class="tooltiptext">
+                You need to work 2 days at home to take care of your new-born.
+                You care about a good salary and job security.
+                <br> <br>
+                The ordering of the importance of those issues is:
+                Work from home > Salary > Probation time.
+            </span>
+        </div>
+    </div> </div> </div>
+
+    <!-- container that can hold bootstrap rows -->
+    <div class="container-fluid">
+
+        <div class="row" style="text-align:center; margin:auto;">
+            <p style="width:100%"> Please click on the job offer which you would prefer, given the profile description.</p>
+        </div>
+
+        <div class="row no-gutter" id="pairwise-comparison">
+
+            <!-- Job 1 -->
+            <div class="col-6 pairwise-job">
+                <form action="../choose_pairwise_jobs" method="post">
+
+                    <!-- information we pass on when this job is clicked -->
+                    <input type="hidden" name="username" value="{{username}}">
+                    <input type="hidden" name="job-clicked" value="1">
+                    <input type="hidden" name="winner" value="{% for val in job1.values() %} {{val}} {% endfor %}">
+                    <input type="hidden" name="loser" value="{% for val in job2.values() %} {{val}} {% endfor %}">
+
+                    <!-- information about the job which is displayed -->
+                    <div class="row single-item job" id="left" onclick="return mouseClickJob(event)" onmouseenter="return mouseEnterJob(event);" onmouseleave="return mouseLeaveJob(event)">
+                        {% for key, value in job1.items() %}
+                        <div class="col-sm-7 single-item-text"> {{key}}: </div>
+                        <div class="col-sm-4 single-item-text"> {{value}} </div>
+                        {% if key != 'Probation' %}
+                            <div class="col-sm-12 single-item-text job-line-sep" style="margin:5px 0 5px 0; border-style:dashed; border-width:0.5px;"></div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="col-6 pairwise-job">
+                <form action="../choose_pairwise_jobs" method="post">
+
+                    <!-- information we pass on when this job is clicked -->
+                    <input type="hidden" name="username" value="{{username}}">
+                    <input type="hidden" name="job-clicked" value="2">
+                    <input type="hidden" name="winner" value="{% for val in job2.values() %} {{val}} {% endfor %}">
+                    <input type="hidden" name="loser" value="{% for val in job1.values() %} {{val}} {% endfor %}">
+
+                    <!-- information about the job which is displayed -->
+                    <div class="row single-item job" id='right' onclick="return mouseClickJob(event)" onmouseenter="return mouseEnterJob(event);" onmouseleave="return mouseLeaveJob(event)">
+                        {% for key, value in job2.items() %}
+                        <div class="col-sm-7 single-item-text"> {{key}}: </div>
+                        <div class="col-sm-4 single-item-text"> {{value}} </div>
+                        {% if key != 'Probation' %}
+                            <div class="col-sm-12 single-item-text job-line-sep" style="margin:5px 0 5px 0; border-style:dashed; border-width:0.5px;"></div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- javascript for fancy things -->
+    <script type="text/javascript"> var winner = {{ side_clicked }} </script>
+    <script type="text/javascript" src="../static/pairwise.js"></script>
+
+</body>
+</html>

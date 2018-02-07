@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- bootstrap -->
+    <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <!-- my stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/main_tutorial.css">
+    <link rel="stylesheet" type="text/css" href="../static/pairwise.css">
+
+</head>
+
+<body>
+
+
+<!-- header with question mark -->
+<div class="jumbotron"> <div class="container" style="padding:0"> <div class="row">
+    <div class="col-sm-8" style="padding:0">
+        <h1> PAIRWISE COMPARISONS </h1>
+        <p> In each step, please pick the <strong> better </strong> option. </p>
+    </div>
+    <div class="col-sm-4 tooltip" style="padding:0; height:auto; top:0; right:0; position:absolute;">
+        <img style="height:80%;" src="../static/images/question_mark.png" />
+        <span class="tooltiptext"> You prefer larger numbers over smaller numbers. Example: You like 8 more than 5. </span>
+    </div>
+</div> </div> </div>
+
+
+<!-- container that can hold bootstrap rows -->
+<div class="container">
+
+    <div class="row justify-content-md-center" style="text-align:center; margin:auto;">
+        <p style="padding-left:0; text-align:left; font-size:130%"> Click on the option you prefer: </p>
+    </div>
+
+    <div class="row" id="pairwise-comparison">
+
+        <!-- Job 1 -->
+        <div class="col-sm">
+            <form action="../choose_pairwise_tutorial" method="post">
+
+                <!-- information we pass on when this job is clicked -->
+                <input type="hidden" name="username" value="{{username}}">
+                <input type="hidden" name="number_clicked" value="1">
+                <input type="hidden" name="winner" value="{{number1}}">
+                <input type="hidden" name="number_counter" value="{{number_counter}}">
+
+                <!-- information about the job which is displayed -->
+                <div class="number single-item" id="left" onclick="check_pairwise(event, {{number1}}, {{number2}});" onmouseenter="return mouseEnterJob(event);" onmouseleave="return mouseLeaveJob(event)">
+                    <p class="single-item-text">{{ number1 }}</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Job 2 -->
+        <div class="col-sm">
+            <form action="../choose_pairwise_tutorial" method="post">
+
+                <!-- information we pass on when this job is clicked -->
+                <input type="hidden" name="username" value="{{username}}">
+                <input type="hidden" name="number_clicked" value="2">
+                <input type="hidden" name="winner" value="{{number2}}">
+                <input type="hidden" name="number_counter" value="{{number_counter}}">
+
+                <!-- information about the job which is displayed -->
+                <div class="number single-item" id='right' onclick="check_pairwise(event, {{number2}}, {{number1}});" onmouseenter="return mouseEnterJob(event);" onmouseleave="return mouseLeaveJob(event)">
+                    <p class="single-item-text">{{ number2 }}</p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div> <!-- end container for rows-->
+
+<!-- javascript for fancy things -->
+<script type="text/javascript"> var winner = {{ side_clicked }} </script>
+<script type="text/javascript" src="../static/pairwise.js"></script>
+<script type="text/javascript" src="../static/main_tutorial.js"></script>
+
+</body>
+</html>

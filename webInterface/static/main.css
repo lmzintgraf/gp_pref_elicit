@@ -1,0 +1,208 @@
+/* these are the colors for our color scheme */
+:root {
+    --light-red: #fff7fa;
+    --bright-red: #b20779;
+    --dark-red: #6d0456;
+    --grey-red: #bcb7b9;
+
+    --light-green: #b5ffe7;
+    --bright-green: #59e5b9;
+    --dark-green: #2e7a62;
+    --grey-green: #7b968d;
+
+    --light-blue: #bfc5ff;
+    --dark-blue: #010e8c;
+    --light-pink: #ffbfcb;
+    --grey-red: #bcb7b9;
+
+    --light-yellow: #f7ff26;
+}
+
+/* background color */
+html, body {
+    background-color: var(--light-red);
+}
+
+/* sorting area; used in clustering and ranking */
+.sorting-area {
+    user-select:none; /* this is to make sure the user doesn't select anything but draggable items */
+    height: 550px;
+    overflow-y: scroll;
+}
+
+/* how single items (numbers/jobs) behave */
+.single-item {
+    margin:auto;
+    position:relative;
+    z-index:0;
+}
+
+.is-moving {
+}
+
+.single-item-text {
+    user-select:none;
+}
+
+.just-dropped {
+    -webkit-box-shadow: 0px 0px 15px 5px var(--light-yellow) !important;
+    -moz-box-shadow: 0px 0px 15px 5px var(--light-yellow) !important;
+    box-shadow: 0px 0px 15px 5px var(--light-yellow) !important;
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+/* -- buttons -- */
+
+.submit-button {
+    cursor:pointer;
+    width:100%;
+    height:auto;
+}
+
+/* for picking a tutorial/experiment */
+
+.btn-choose {
+    display:inline-block;
+    min-height:150px;
+    min-width:200px;
+    border-radius: 20px;
+}
+
+/* --- overwriting some things from bootstrap --- */
+
+/* header */
+.jumbotron {
+  border-radius: 0rem;
+  margin-bottom: 1rem;
+  padding: 2rem 15% 0.1rem 15%;
+
+  background-color: var(--light-green);
+  box-shadow: 0px 10px 10px var(--grey-green);
+}
+
+/* all our buttons */
+.btn-primary {
+    background-color: var(--bright-green);
+    border-color: var(--dark-green);
+    color: var(--bright-red);
+    border-radius: 5px;
+    cursor: pointer;
+    border-style: solid;
+}
+
+.btn-primary:hover {
+    background-color: var(--bright-red);
+    border-color: var(--dark-red);
+    color: var(--bright-green);
+}
+
+.btn-primary:disabled {
+    background-color: var(--grey-green);
+    color: var(--grey-red);
+    border-color: var(--grey-red);
+    pointer-events: none;
+    border-style: solid;
+    opacity: 0.5;
+}
+
+/* use with pairwise comparisons */
+.container {
+    padding: 30px 35% 0 15%;
+    max-width:100%;
+}
+
+/* use with ranking and clustering */
+.container-fluid {
+    padding: 30px 20% 0 15%;
+    max-width:100%;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+/* --- for gifs --- */
+
+.giphy-embed {
+    pointer-events:none;
+    allowTransparency:true;
+    background:transparent;
+}
+
+
+/* -- for the persona description box -- */
+
+p.persona-heading {
+    color: var(--bright-red);
+    font-size: 150%;
+    width: 100%;
+    font-weight: bold;
+}
+
+.persona-text {
+    font-size: 130%;
+    text-align: justify;
+}
+
+div.persona-description {
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    margin-top:30px;
+    padding-left:10px;
+    padding-right:10px;
+    margin-left:50px;
+    margin-right:50px;
+}
+
+.persona-recall {
+    display: none;
+}
+
+.persona-recall:hover {
+    display: block;
+}
+
+/* -- for hovering over the persona description --*/
+/* (mostly from https://www.w3schools.com/css/css_tooltip.asp) */
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+
+    visibility: hidden;
+    background-color: var(--dark-red);
+    color: #fff;
+    text-align: justify;
+    padding: 10px;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+
+    width: 300px;
+    top: 100%;
+    left:-150px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

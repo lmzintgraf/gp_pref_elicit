@@ -1,0 +1,37 @@
+
+/* -- single numbers -- */
+
+.number {
+    text-align:center;
+    font-size:45px;
+
+    width:75px;
+    height:75px;
+
+    background-color: var(--bright-green);
+    border-color: var(--dark-green);
+    color: var(--dark-red);
+
+    border-style:solid;
+    border-width:3px;
+    border-radius: 20px;
+}
+
+.number:hover, .moving-copy {
+    background-color: var(--bright-red);
+    border-color: var(--dark-red);
+    color: var(--bright-green);
+}
+
+.dragover-item {
+    margin-top: 75px !important;
+}
+
+/* -- buttons in the tutorial -- */
+
+.btn-primary {
+    display:inline-block;
+    min-height:150px;
+    min-width:200px;
+    border-radius: 20px;
+}

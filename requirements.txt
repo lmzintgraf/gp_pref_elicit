@@ -1,0 +1,5 @@
+numpy
+flask
+scipy
+scikit-learn
+pulp

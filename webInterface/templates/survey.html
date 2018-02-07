@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="../static/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+  <link rel="stylesheet" type="text/css" href="../static/main_jobs.css">
+  <link rel="stylesheet" type="text/css" href="../static/clustering.css">
+  <link rel="stylesheet" type="text/css" href="../static/survey.css">
+</head>
+
+<body>
+
+    <!-- header-->
+    <div class="jumbotron">
+        <h1> Preference Elicitation Study </h1>
+        <p> Supporting Multi-Objective Decision Making. </p>
+    </div>
+
+<!-- container that can hold bootstrap rows -->
+    <div class="container">
+
+        <div class="row" style="margin-top:30px;"> <!-- start different tutorials -->
+            <p style="font-size:130%; width:100%; margin-left:auto; text-align:justify;">
+                Last step: please take the below <strong>survey</strong>
+                about your experience.
+            </p>
+        </div>
+
+        <!-- SURVEY-->
+        <form class="row survey" id="subForm" action="../submit_survey" method="POST">
+
+            <!-- QUESTION 1: ranking of outcomes -->
+
+            <div class="row question">
+                <p class="question">
+                    Please rank the outcomes from the experiment.
+                </p>
+                <p style="font-size:80%;">
+                    (NB: They're not in the order in which you did the experiments,
+                    and there might be the same answer several times.)
+                </p>
+            </div>
+            <div class="row answer" style="margin:0;">
+                <!-- the results -->
+                <div class="col-6 unclustered" id="unclustered-items" style="margin-top:20px" ondragenter="return dragEnter(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    {% for job in winners %}
+                    <div class="row single-item-text job" id="{{job['ID']}}" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            {% for key, value in job.items() %}
+                                {% if key != 'ID' %}
+                                    <div class="col-sm-7"> {{key}}: </div>
+                                    <div class="col-sm-4"> {{value}} </div>
+                                    {% if key != 'Probation' %}
+                                        <div class="col-sm-12 job-line-sep"></div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                    </div>
+                    <div class="row" style="width:100%; height:10px;"></div>
+                    {% endfor %}
+                </div>
+                <!-- the clusters -->
+                <div class="col-6" style="overflow: visible;">
+                    <!-- best -->
+                    <div class="row cluster" id="top-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        <p id="top-cluster-text">1st PLACE</p>
+                    </div>
+                    <!-- medium -->
+                    <div class="row cluster" id="good-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        <p id="good-cluster-text">2nd PLACE</p>
+                    </div>
+                    <!-- worst -->
+                    <div class="row cluster" id="bad-cluster" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        <p id="bad-cluster-text">3rd PLACE</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+            <!-- QUESTION 2: EFFORT -->
+            <div class="row question" style="margin-top:70px;">
+                <p class="question" style="margin-bottom:10px;">
+                    Please tell us how you feel about the <strong>effort</strong> you had to put into answering the questions.
+                </p>
+            </div>
+            <div class="row table">
+                <div class="row answer">
+                    <div class="col-sm-4">Type </div>
+                    <div class="col-sm-4">Effort was ok </div>
+                    <div class="col-sm-4">Too much effort </div>
+                </div>
+                <div class="row" style="margin:0 10px 0 10px; height:1px;width:100%;background-color:black;"></div>
+                <div class="row answer">
+                    <div class="col-sm-4">Pairwise </div>
+                    <div class="col-sm-4"><input type="radio" style="margin-left:40%;" name="pairwise-effort" value="OK"></div>
+                    <div class="col-sm-4"><input type="radio" style="margin-left:40%;" name="pairwise-effort" value="HIGH"></div>
+                </div>
+                <div class="row answer">
+                    <div class="col-sm-4">Ranking </div>
+                    <div class="col-sm-4"><input type="radio" style="margin-left:40%;" name="ranking-effort" value="OK"></div>
+                    <div class="col-sm-4"><input type="radio" style="margin-left:40%;" name="ranking-effort" value="HIGH"></div>
+                </div>
+                <div class="row answer">
+                    <div class="col-sm-4">Clustering </div>
+                    <div class="col-sm-4"><input type="radio" style="margin-left:40%;" name="clustering-effort" value="OK"></div>
+                    <div class="col-sm-4"><input type="radio" style="margin-left:40%;" name="clustering-effort" value="HIGH"></div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- QUESTION 3: UNDERSTANDING PREFERENCES -->
+            <div class="row question" style="margin-top:70px;">
+                <p class="question" style="margin-bottom:10px;">
+                    In each experiment, an algorithm selected the next
+                    suggestion, depending on your answer. Do you feel like the algorithm
+                    understood your preferences and <strong>suggested better jobs over time</strong>?
+                </p>
+            </div>
+            <div class="row table">
+                <div class="row answer">
+                    <div class="col-sm-3">Type </div>
+                    <div class="col-sm-3">Yes</div>
+                    <div class="col-sm-3">No</div>
+                    <div class="col-sm-3">Don't know</div>
+                </div>
+                <div class="row" style="margin:0 10px 0 10px; height:1px;width:100%;background-color:black;"></div>
+                <div class="row answer">
+                    <div class="col-sm-3">Pairwise </div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-pairwise" value="YES"></div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-pairwise" value="NO"></div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-pairwise" value="DUNNO"></div>
+                </div>
+                <div class="row answer">
+                    <div class="col-sm-3">Ranking </div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-ranking" value="YES"></div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-ranking" value="NO"></div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-ranking" value="DUNNO"></div>
+                </div>
+                <div class="row answer">
+                    <div class="col-sm-3">Clustering </div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-clustering" value="YES"></div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-clustering" value="NO"></div>
+                    <div class="col-sm-3"><input type="radio" style="margin-left:10%;" name="understand-clustering" value="DUNNO"></div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- QUESTION 3: UNDERSTANDING PREFERENCES -->
+            <div class="row question">
+                <p class="question">
+                    If you needed a decision support system
+                    for sifting through a lot of information and finding
+                    the item you like best, which method would you prefer?
+                    Please sort.
+                </p>
+            </div>
+
+            <div class="row answer" style="margin:0;">
+                <!-- the results -->
+                <div class="col-6 unclustered" id="unclustered-preference" style="margin-top:20px" ondragenter="return dragEnter(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                    <div class="row job single-item-text query-type query-preference" id="prefer-clustering" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            <p class="query-type">Clustering</p>
+                    </div>
+                    <div class="row" style="width:100%; height:10px;"></div>
+                    <div class="row job single-item-text query-type query-preference" id="prefer-ranking" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            <p class="query-type">Ranking</p>
+                    </div>
+                    <div class="row" style="width:100%; height:10px;"></div>
+                    <div class="row job single-item-text query-type query-preference" id="prefer-pairwise" draggable="true" ondragstart="return dragStartItem(event)" ondragend="return dragEndItem(event)">
+                            <p class="query-type">Pairwise</p>
+                    </div>
+                </div>
+                <!-- the clusters -->
+                <div class="col-6" style="overflow: visible;">
+                    <!-- best -->
+                    <div class="row cluster preference-box" id="prefer-best" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        <p class="pref-box-txt">Prefer most</p>
+                    </div>
+                    <!-- medium -->
+                    <div class="row cluster preference-box" id="prefer-medium" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        <p class="pref-box-txt">Prefer medium</p>
+                    </div>
+                    <!-- worst -->
+                    <div class="row cluster preference-box" id="prefer-least" ondragenter="return dragEnter(event)" ondragleave="return dragLeave(event)" ondrop="return handleDrop(event)" ondragover="return dragOver(event)">
+                        <p class="pref-box-txt">Prefer least</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- QUESTION 5: DISTRACTION -->
+            <div class="row question" style="margin-top:70px;">
+                <p class="question" style="margin-bottom:10px;">
+                    Were you distracted during the experiments?
+                </p>
+            </div>
+            <div class="row table">
+                <div class="row answer">
+                    <div class="col-sm-2">Yes </div>
+                    <div class="col-sm-1"><input type="radio" style="margin-left:40%;" name="distracted" value="YES"></div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-2">No </div>
+                    <div class="col-sm-1"><input type="radio" style="margin-left:40%;" name="distracted" value="NO"></div>
+                </div>
+            </div>
+
+
+
+            <!-- QUESTION 6: COMMENTS -->
+            <div class="row question" style="margin-top:70px;">
+                <p class="question" style="margin-bottom:10px;">
+                    That's all!
+                    If you have any comments for us please leave them here.
+                </p>
+            </div>
+            <div class="row table">
+                <div class="row answer">
+                    <input type="text" class="form-control" name="comment" onkeypress="return checkEnter(event)">
+                </div>
+            </div>
+
+
+
+            <!-- SUBMIT BUTTON -->
+            <input type="hidden" name="username" value="{{username}}"/>
+            <input type="hidden" name="outcome-ranking" value="">
+            <input type="hidden" name="understand-ranking" value="">
+            <input type="hidden" name="preference-ranking" value="">
+
+            <button type="button" class="btn-primary" onclick="return handleSurveySubmit()">SUBMIT</button>
+
+
+
+
+        </form>
+        <!-- END SURVEY -->
+
+    </div> <!-- end container for bootstrap rows -->
+
+    <!-- javascript for checking if everything is answered-->
+    <script type="text/javascript" src="../static/clustering.js"></script>
+    <script type="text/javascript" src="../static/survey.js"></script>
+
+</body>
+</html>

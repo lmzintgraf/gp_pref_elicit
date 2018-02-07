@@ -1,0 +1,46 @@
+.sorting-area{
+    height:100% !important;
+}
+
+.single-item {
+    cursor:move;
+}
+
+.job {
+    width:280px;
+}
+
+.sorted-in-job{
+    width:220px;
+    font-size:50%;
+}
+
+.col-ranking {
+    background-color: var(--grey-red);
+    border-style: none;
+    box-shadow: inset 0px 0px 20px 10px var(--light-red);
+    border-radius: 20px;
+}
+
+#arrow {
+    height:550px;
+    margin-top:20px;
+    padding:0;
+}
+
+#ranked-items, #unranked-items {
+    margin-top:20px;
+    margin-bottom:20px;
+    padding:0;
+    overflow:scroll;
+}
+
+.is-moving {
+    z-index:1;
+    opacity:0;
+    position:absolute;
+}
+
+.moving-copy {
+    position:absolute;
+}

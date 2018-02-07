@@ -1,0 +1,18 @@
+# the usual
+.DS_Store
+*.pyc
+__pycache__
+.idea
+
+# folders
+experiments/ccs_cache
+experiments/pcs_grid_cache
+experiments/result_plots
+results
+
+# other files
+.ipynb_checkpoints
+*.ipynb
+*.npy
+*.p
+bootstrap.css
