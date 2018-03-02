@@ -63,8 +63,6 @@ class Experiment:
 
             print("... query ", q + 1)
 
-            self.gp.update(self.dataset)
-
             # get the datapoint(s) for the next (first) query
             if q == 0:
                 self.curr_x_max, self.curr_x_new = self.acquirer.get_start_points(self.gp)
@@ -86,6 +84,7 @@ class Experiment:
             if self.params['gp prior mean'] == 'linear-zero' and q > 4:
                 self.gp.prior_mean_type = 'zero'
 
+            print(self.dataset.comparisons)
             self.gp.update(self.dataset)
 
             y_max = self.user.get_preference(new_x_max, add_noise=False)[0]
