@@ -5,6 +5,10 @@ Experiments for figure 6 in the paper.
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+import sys
+sys.path.insert(0, '.')
+sys.path.insert(0, '..')
 from gp_utilities import utils_experiment, utils_parameters
 
 plt.figure(figsize=(10, 7))
@@ -82,5 +86,8 @@ for seed in [13, 666]:
 
 # -- show plot --
 plt.tight_layout(rect=(0, 0.08, 1, 1))
-plt.savefig('result_plots/gp_shape')
+dir_plots = './result_plots'
+if not os.path.exists(dir_plots):
+    os.mkdir(dir_plots)
+plt.savefig(os.path.join(dir_plots, 'gp_shape'))
 plt.show()

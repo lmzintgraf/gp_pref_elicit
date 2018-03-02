@@ -5,8 +5,9 @@ Experiments for figure 5 in the paper.
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import sys
-sys.path.insert(0, '..')
+sys.path.insert(0, '.')
 from gp_utilities import utils_experiment, utils_parameters
 
 start_seed = 13
@@ -72,5 +73,8 @@ for prior_type, ref_min, ref_max in [['zero', False, False], ['linear-zero', 'fu
         plt_idx += 1
 
 plt.gcf().tight_layout(rect=(-0.01, -0.01, 1.02, 0.89))
-plt.savefig('result_plots/queries_{}'.format(num_iter))
+dir_plots = './result_plots'
+if not os.path.exists(dir_plots):
+    os.mkdir(dir_plots)
+plt.savefig(os.path.join(dir_plots, 'queries_{}'.format(num_iter)))
 plt.show()

@@ -5,7 +5,9 @@ Experiments for figure 4 in the paper.
 """
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 import sys
+sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 from gp_utilities import utils_experiment, utils_parameters
 
@@ -133,5 +135,8 @@ for noise_level in [0.01]:
         plt_idx += 1
 
 plt.tight_layout(rect=(-0.015, -0.02, 1.015, 1.02))
-plt.savefig('result_plots/mono_prior+refpoints_{}'.format(num_iter))
+dir_plots = './result_plots'
+if not os.path.exists(dir_plots):
+    os.mkdir(dir_plots)
+plt.savefig(os.path.join(dir_plots, 'mono_prior+refpoints_{}'.format(num_iter)))
 plt.show()
