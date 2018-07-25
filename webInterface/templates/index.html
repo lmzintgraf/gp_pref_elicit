@@ -41,7 +41,7 @@
             {% if (username is not defined) or (username == 'invalid') or (username == 'existing') %}
 
                 <p style="font-size:130%">
-                    Enter your MTurk Workder ID:
+                    Enter your MTurk Workder ID or a nickname:
                 </p>
 
                 <form name='registration_for' action="register_user" method="POST">
@@ -51,11 +51,11 @@
 
                 {% if username == 'invalid' %}
                     <p style="color:red;">
-                        Sorry, that WorkerID is invalid. Use only alphanumeric characters.
+                        Sorry, that ID is invalid. Use only alphanumeric characters.
                     </p>
                 {% elif username == 'existing' %}
                     <p style="color:red;">
-                        This WorkderID is already registered. You can only complete the experiment once.
+                        This ID is already registered. You can only complete the experiment once.
                     </p>
                 {% else %}
                     <p style="color:red; margin-left:5px; opacity:0; visibility:hidden;"> I'm just a placeholder. </p>

@@ -27,4 +27,5 @@ python webInterface/start.py
 ```
 in a terminal and go to `http://0.0.0.0:5000/` in a web browser of your choice 
 (I tested a few, but can't guarantee it works everywhere).
-There you should find the starting page of the survey.
+There you should find the starting page of the experiment. 
+Flags: `-t` to skip the tutorial, `-d` for debug mode.

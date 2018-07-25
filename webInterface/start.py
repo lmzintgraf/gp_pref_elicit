@@ -4,6 +4,7 @@ Start script for running the survey webpage.
 @author: Luisa M Zintgraf (2017, Vrije Universiteit Brussel)
 """
 import re
+import argparse
 import numpy as np
 from os import environ
 from flask import Flask, render_template, request, redirect, url_for
@@ -33,6 +34,31 @@ app.register_blueprint(bp_pairwise_jobs)
 app.register_blueprint(bp_ranking_jobs)
 app.register_blueprint(bp_clustering_jobs)
 
+# default settings for running the script locally
+default_host = '0.0.0.0'
+default_port = environ.get("PORT", 5000)
+
+# set up the command-line options
+parser = argparse.ArgumentParser()
+parser.add_argument("-H", "--host",
+                    help="Hostname of the Flask app " +
+                         "[default %s]" % default_host,
+                    default=default_host)
+parser.add_argument("-P", "--port",
+                    help="Port for the Flask app " +
+                         "[default %s]" % default_port,
+                    default=default_port)
+parser.add_argument("-t", "--skip_tutorial",
+                    help="Skip tutorial " +
+                         "[default False]",
+                    action="store_true")
+parser.add_argument("-d", "--debug",
+                    help="Debug mode " +
+                         "[default False]",
+                    action="store_true")
+
+args = parser.parse_args()
+
 
 @app.route("/")
 def main():
@@ -56,7 +82,10 @@ def register_user():
 
     utils_users.register_user(username)
 
-    return render_template("persona_tutorial.html", username=username)
+    if args.skip_tutorial:
+        return render_template("persona_jobs.html", username=username)
+    else:
+        return render_template("persona_tutorial.html", username=username)
 
 # -- tutorial --
 
@@ -169,5 +198,8 @@ def submit_survey():
 
 # --- run ---
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=environ.get("PORT", 5000))
+app.run(
+    debug=args.debug,
+    host=args.host,
+    port=int(args.port)
+)
