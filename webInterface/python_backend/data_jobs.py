@@ -13,8 +13,7 @@ def get_random_job_matrix(min_num_jobs, seed, normalise=True):
     """ Returns a matrix (num_jobs x num_objectives) of random job offers """
     random_state = np.random.RandomState(seed)
 
-    num_jobs_found = 0
-    while num_jobs_found < min_num_jobs:
+    for j in range(10):
 
         num_rand_jobs = min_num_jobs*100
 
@@ -38,12 +37,13 @@ def get_random_job_matrix(min_num_jobs, seed, normalise=True):
                 job_matrix_reduced = np.vstack((job_matrix_reduced, job_matrix[job_idx]))
         job_matrix = job_matrix_reduced
 
-        # check how many jobs we found
-        num_jobs_found = job_matrix.shape[0]
+        if job_matrix.shape[0] >= min_num_jobs:
+            break
 
     if normalise:
         job_matrix = normalise_job_offer(job_matrix)
 
+    print('Created {} jobs; rerun with different seed if more are  needed.'.format(job_matrix.shape[0]))
     return job_matrix
 
 
@@ -93,10 +93,9 @@ def denormalise_job_offer(job_matrix):
 
 if __name__ == '__main__':
 
-    jobs = get_random_job_matrix(min_num_jobs=50, seed=13, normalise=True)
+    jobs = get_random_job_matrix(min_num_jobs=50, seed=73, normalise=True)
 
     import utility_func_jobs
     job_utils = utility_func_jobs.utility(jobs, min_util=0, max_util=1)
-    print(np.sort(job_utils))
 
     np.save(utils_jobs.PATH_JOBS, jobs)
