@@ -56,4 +56,4 @@ OBJ_STEPSIZE = OrderedDict({key: OBJ_STEPSIZE[key] for key in OBJECTIVES})
 TIME_EXPERIMENT_SEC = 60
 
 # with which jobs we start
-START_JOB_INDICES = [[27, 26], [1, 39], [0, 10]]
+START_JOB_INDICES = [[0, 1], [2, 3], [4, 5]]
